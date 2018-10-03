@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration monitorInterval="60">
+	<Properties>
+		<Property name="log-path">/opt/apps/psm/logs</Property>
+	</Properties>
+	<Appenders>
+		<Console name="Console-Appender" target="SYSTEM_OUT">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+				>
+			</PatternLayout>
+		</Console>
+		<RollingFile name="PropDataSvc-Rolling-File-Appender"
+			fileName="${log-path}/psm-pdsvc_log.log" filePattern="${log-path}/psm-pdsvc_log.log-%d{yyyy-MM-dd}.log">
+			<PatternLayout>
+				<pattern>
+					[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+				</pattern>
+			</PatternLayout>
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
+	</Appenders>
+	<Loggers>
+		<Logger name="org.springframework" level="debug" additivity="false">
+			<AppenderRef ref="PropDataSvc-Rolling-File-Appender" />
+			<AppenderRef ref="Console-Appender" />
+		</Logger>
+		<Logger name="gov.nsf.psm.proposaldata" level="debug" additivity="false">
+			<AppenderRef ref="PropDataSvc-Rolling-File-Appender" />
+			<AppenderRef ref="Console-Appender" />
+		</Logger>
+<!--  		<Logger name="org.hibernate" level="info" additivity="false">
+			<AppenderRef ref="PropDataSvc-Rolling-File-Appender" />
+			<AppenderRef ref="Console-Appender" />
+		</Logger>
+		<Logger name="org.hibernate.type.descriptor.sql" level="trace" additivity="false">
+			<AppenderRef ref="PropDataSvc-Rolling-File-Appender" />
+			<AppenderRef ref="Console-Appender" />
+		</Logger>	-->
+	    <Logger name="org.hibernate.SQL" level="debug" additivity="false">
+			<AppenderRef ref="PropDataSvc-Rolling-File-Appender" />
+			<AppenderRef ref="Console-Appender" />
+	    </Logger>				
+		<Root>
+			<AppenderRef ref="Console-Appender" />
+			<AppenderRef ref="PropDataSvc-Rolling-File-Appender" />
+		</Root>
+	</Loggers>
+</Configuration>

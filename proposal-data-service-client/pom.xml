@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+	<!-- *********************************************************************** -->
+	<!-- Project Identification -->
+	<!-- *********************************************************************** -->
+	<artifactId>proposal-data-service-client</artifactId>
+	<packaging>jar</packaging>
+
+    <name>Proposal Data Service Client</name>
+	<description>Proposal Data Service Client jar</description>
+
+	<!-- *********************************************************************** -->
+	<!-- Project Parent -->
+	<!-- *********************************************************************** -->
+	<parent>
+		<groupId>gov.nsf.psm</groupId>
+		<artifactId>proposal-data</artifactId>
+		<version>2.0.0-RC.50.1-SNAPSHOT</version>
+	</parent>
+
+
+	<!-- *********************************************************************** -->
+	<!-- Project Properties -->
+	<!-- *********************************************************************** -->
+	<properties>
+		<psm.foundation.version>2.0.0-RC.50.1-SNAPSHOT</psm.foundation.version>
+		<evoinflector.version>1.2</evoinflector.version>
+    	<guava.version>17.0</guava.version>
+    	<jamon.version>2.81</jamon.version>
+      	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<!-- *********************************************************************** -->
+	<!-- Project Dependencies -->
+	<!-- *********************************************************************** -->
+
+	<dependencies>
+		<dependency>
+		    <groupId>gov.nsf.psm</groupId>
+		    <artifactId>psm-foundation</artifactId>
+			<version>${psm.foundation.version}</version>
+		</dependency>
+		<!-- English pluralization library -->
+		<dependency>
+			<groupId>org.atteo</groupId>
+			<artifactId>evo-inflector</artifactId>
+			<version>${evoinflector.version}</version>
+		</dependency>
+		<!-- Guava -->
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+      <groupId>com.jamonapi</groupId>
+      <artifactId>jamon</artifactId>
+      <version>${jamon.version}</version>
+    </dependency>
+		<dependency>
+			<groupId>org.springframework.restdocs</groupId>
+			<artifactId>spring-restdocs-mockmvc</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>log4j-over-slf4j</artifactId>
+		</dependency>
+	</dependencies>
+
+
+	<!-- *********************************************************************** -->
+	<!-- Project Build -->
+	<!-- *********************************************************************** -->
+
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**/*.java</include>
+				</includes>
+			</resource>
+		</resources>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.8</version>
+				<executions>
+					<execution>
+						<id>copy-dependencies</id>
+						<phase>prepare-package</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/classes/lib</outputDirectory>
+							<includeScope>system</includeScope>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
